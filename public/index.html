@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DotDash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="nav-container">
+            <h1 class="site-title">Цэг Зураас</h1>
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">Эхлэл</a>
+                <a href="#typing" class="nav-link">Бичих дадлага</a>
+                <a href="hearing.html" class="nav-link">Сонсох дадлага</a>
+                <a href="leaderboard.html" class="nav-link">Онооны самбар</a>
+                <a href="learn.html" class="nav-link">Сургалт</a>
+                <a href="#contact" class="nav-link">Бидний тухай</a>
+                <a href="#" class="nav-link signup">Бүртгүүлэх</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Typing Test Card -->
+        <section class="typing-card" id="typing">
+            <h1 class="typing-card-title">Бичих дадлага</h1>
+
+            <!-- Target Phrase -->
+            <div class="target-section">
+                <div class="target-phrase">
+                    <div class="field-label">Target Text</div>
+                    <div id="targetPhraseDisplay">Loading...</div>
+                </div>
+            </div>
+
+            <div id="typingArea" class="morse-decoded-container">
+                <div class="morse-display">
+                    <div class="field-label">Current Morse</div>
+                    <div id="morseSequenceDisplay"></div>
+                </div>
+
+                <div class="decoded-text">
+                    <div class="field-label">Decoded Morse</div>
+                    <div id="decodedText"></div>
+                </div>
+            </div>
+
+            <!-- Results Area -->
+            <div id="resultsArea" class="morse-decoded-container" style="display:none;"></div>
+
+
+            <!-- Dot Duration Slider -->
+            <div class="slider-container">
+                <label for="dotDurationSlider">
+                    Dot Duration (ms): <span id="dotDurationValue">200</span>
+                </label>
+                <input type="range" id="dotDurationSlider" min="30" max="1000" value="200" step="10">
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="stats-section">
+            <h2 class="stats-title">Үзүүлэлт</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Хугацаа</div>
+                    <div class="stat-value"><span id="time">0</span>s</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Үсэгний тоо</div>
+                    <div class="stat-value"><span id="chars">0</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Чанар</div>
+                    <div class="stat-value"><span id="accuracy">0%</span></div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-label">WPM</div>
+                    <div class="stat-value"><span id="wpm">0</span></div>
+                </div>
+            </div>
+
+            <h2 class="stats-subtitle">Түүх</h2>
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Хэрэглэгч</th>
+                        <th>Хугацаа</th>
+                        <th>Үсэгний тоо</th>
+                        <th>WPM</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="restartBtn">Дахин эхлэх</button>
+    </div>
+
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>Бүртгэл үүсгэх</h2>
+            <form class="signup-form">
+                <div class="form-group">
+                    <label for="username">Хэрэглэгчийн нэр</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Имэйл</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Нууц үг</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="signup-btn">Бүртгүүлэх</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

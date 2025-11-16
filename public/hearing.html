@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DotDash - Hearing Test</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sequence-display {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+    .sequence-box {
+      flex: 1;
+      text-align: center;
+      margin: 0 10px;
+      padding: 15px;
+      border: 2px solid #334155;
+      border-radius: 10px;
+      background: #f1f5f9;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    .hearing-controls {
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .hearing-start-and-input {
+    display: flex;
+    justify-content: flex-start;   /* keep them left-aligned */
+    align-items: center;           /* center vertically */
+    gap: 20px;                     /* space between button and input */
+    margin: 15px 0;
+    }
+
+    #startHearingTest,
+    #hearingInput {
+    height: 45px;                  /* same height */
+    display: flex;                 /* force content centering */
+    align-items: center;           /* vertical center */
+    }
+
+    #startHearingTest {
+    padding: 0 20px;               /* horizontal padding only */
+    font-size: 1.1rem;
+    }
+
+    #hearingInput {
+    flex: 1;
+    margin-left: 20px;
+    padding: 10px;
+    font-size: 1.4rem;       /* match sequence box size */
+    font-weight: normal;     /* not bold */
+    font-family: Arial, sans-serif; /* match site font */
+    text-align: center;
+    height: 45px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    }
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <h1 class="site-title">DotDash</h1>
+      <nav class="nav-links">
+          <a href="home.html" class="nav-link">Эхлэл</a>
+          <a href="index.html#typing" class="nav-link">Бичих дадлага</a>
+          <a href="hearing.html" class="nav-link">Сонсох дадлага</a>
+          <a href="leaderboard.html" class="nav-link">Онооны самбар</a>
+          <a href="learn.html" class="nav-link">Сургалт</a>
+          <a href="#contact" class="nav-link">Бидний тухай</a>
+          <a href="#" class="nav-link signup">Бүртгүүлэх</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="typing-card" id="hearingCard">
+      <h1 class="typing-card-title">Сонсох дадлага</h1>
+
+      <!-- Sequence placeholders -->
+      <div class="sequence-display">
+        <div class="sequence-box">
+          <!-- <label>Correct Sequence</label> -->
+          <div id="correctSeqDisplay">- - - - -</div>
+        </div>
+        <div class="sequence-box">
+          <!-- <label>Your Sequence</label> -->
+          <div id="userSeqDisplay">- - - - -</div>
+        </div>
+      </div>
+
+      <!-- WPM slider -->
+      <div class="hearing-controls">
+        <label for="hearingSpeed">Хурд (WPM): </label>
+        <input type="range" id="hearingSpeed" min="5" max="50" value="20">
+        <span id="hearingSpeedValue">20</span>
+      </div>
+
+      <!-- Start + input inline -->
+      <div class="hearing-start-and-input">
+        <button id="startHearingTest">Эхлүүлэх</button>
+        <input type="text" id="hearingInput" maxlength="5" placeholder="Морзын кодыг хөрвүүлж бичнэ үү" style="text-transform: uppercase;">
+      </div>
+
+      <!-- Stats -->
+      <div class="hearing-stats">
+        <div class="stat-card"><div class="stat-label">Хугацаа</div><div class="stat-value"><span id="hearingTime">0</span>s</div></div>
+        <div class="stat-card"><div class="stat-label">Зөв</div><div class="stat-value"><span id="hearingCorrect">0</span></div></div>
+        <div class="stat-card"><div class="stat-label">Чанар</div><div class="stat-value"><span id="hearingAccuracy">0%</span></div></div>
+      </div>
+
+      <!-- History -->
+      <h2 class="stats-subtitle">Hearing Test History</h2>
+      <table id="hearingHistoryTable">
+        <thead><tr><th>Хугацаа (s)</th><th>Зөв</th><th>Чанар</th></tr></thead>
+        <tbody id="hearingHistoryBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="hearing.js"></script>
+</body>
+</html>
