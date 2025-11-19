@@ -10,12 +10,12 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // ======== Files ========
-const DATA_FILE = 'results.json';
-const PHRASES_FILE = 'phrases.json';
-const USERS_FILE = 'data/users.json'; // new file for accounts
+const DATA_FILE = path.join(__dirname, 'data/results.json');
+const PHRASES_FILE = path.join(__dirname, 'data/phrases.json');
+const USERS_FILE = path.join(__dirname, 'data/users.json'); // new file for accounts
 
 // ======== Load results ========
 let results = [];
