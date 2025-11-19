@@ -1,17 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
+const Phrase = require('../models/Phrase');
 
-const PHRASES_FILE = path.join(__dirname, '../data/phrases.json');
+// ===== Get all phrases =====
+router.get('/', async (req, res) => {
+  try {
+    const phrases = await Phrase.find();
+    res.json(phrases);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-// GET phrases
-router.get('/', (req, res) => {
-  if (!fs.existsSync(PHRASES_FILE))
-    return res.status(404).json({ error: "Phrases file not found" });
+// ===== Add new phrase (optional admin feature) =====
+router.post('/', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text) return res.status(400).json({ error: "Text is required" });
 
-  const phrases = JSON.parse(fs.readFileSync(PHRASES_FILE, 'utf8'));
-  res.json(phrases);
+    const phrase = await Phrase.create({ text });
+    res.json(phrase);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
