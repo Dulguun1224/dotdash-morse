@@ -1,16 +1,27 @@
 const express = require('express');
-const fs = require('fs');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
-const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = 3000;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve public frontend
 app.use(express.static(path.join(__dirname, '../public')));
+
+// Routes
+app.use('/api', require('./routes/auth'));
+app.use('/api/results', require('./routes/results'));
+app.use('/api/phrases', require('./routes/phrases'));
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
 
 // ======== Files ========
 const DATA_FILE = path.join(__dirname, 'data/results.json');
