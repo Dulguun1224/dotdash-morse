@@ -135,7 +135,7 @@ function endTest() {
     const words = characters / 5;
     const wpm = ((words / (elapsedSeconds / 60)) || 0).toFixed(2);
 
-    fetch('/api/results', {
+    fetch('https://dotdash-morse-backend.onrender.com/api/results', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ time: elapsedSeconds, characters, wpm, user: currentUser || 'guest' })
@@ -224,7 +224,7 @@ function restartTest() {
   document.getElementById('accuracy').textContent = '0%';
 
   // Load phrase immediately on page load
-  fetch('/api/phrases')
+  fetch('https://dotdash-morse-backend.onrender.com/api/phrases')
     .then(response => response.json())
     .then(data => {
       if (data.phrases && data.phrases.length > 0) {
@@ -244,7 +244,7 @@ function restartTest() {
 
 document.getElementById('restartBtn').addEventListener('click', restartTest);
 
-fetch('/api/results')
+fetch('https://dotdash-morse-backend.onrender.com/api/results')
   .then(res => res.json())
   .then(data => {
     document.getElementById('historyBody').innerHTML = '';
@@ -256,7 +256,7 @@ fetch('/api/results')
     });
   });
 
-fetch('/api/phrases')
+fetch('https://dotdash-morse-backend.onrender.com/api/phrases')
   .then(response => response.json())
   .then(data => {
     if (data.phrases && data.phrases.length > 0) {
@@ -292,7 +292,7 @@ document.querySelector('.signup-form').addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const res = await fetch('/api/signup', {
+    const res = await fetch('https://dotdash-morse-backend.onrender.com/api/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, email, password })
@@ -356,7 +356,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value;
   try {
-    const res = await fetch('/api/login', {
+    const res = await fetch('https://dotdash-morse-backend.onrender.com/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })

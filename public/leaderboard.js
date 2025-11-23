@@ -1,4 +1,4 @@
-fetch('/api/results')
+fetch('https://dotdash-morse-backend.onrender.com/api/results')
   .then(res => res.json())
   .then(data => {
     const leaderboardBody = document.getElementById('leaderboardBody');
