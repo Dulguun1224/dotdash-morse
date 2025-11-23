@@ -16,6 +16,7 @@ let decodeTimeout = null;
 let wordTimeout = null;
 let testEnded = false;
 
+const API_URL = "https://dotdash-morse-backend.onrender.com";
 const morseSequenceDisplay = document.getElementById('morseSequenceDisplay');
 const decodedTextDiv = document.getElementById('decodedText');
 const timeSpan = document.getElementById('time');
@@ -135,7 +136,7 @@ function endTest() {
     const words = characters / 5;
     const wpm = ((words / (elapsedSeconds / 60)) || 0).toFixed(2);
 
-    fetch('https://dotdash-morse-backend.onrender.com/api/results', {
+    fetch('${API_URL}/api/results', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ time: elapsedSeconds, characters, wpm, user: currentUser || 'guest' })
@@ -224,12 +225,13 @@ function restartTest() {
   document.getElementById('accuracy').textContent = '0%';
 
   // Load phrase immediately on page load
-  fetch('https://dotdash-morse-backend.onrender.com/api/phrases')
+  fetch('${API_URL}/api/phrases')
     .then(response => response.json())
     .then(data => {
-      if (data.phrases && data.phrases.length > 0) {
-        targetPhrase = data.phrases[Math.floor(Math.random() * data.phrases.length)];
-        updateTargetDisplay(); // ✅ show it right away
+      if (Array.isArray(data) && data.length > 0) {
+        const phraseObj = data[Math.floor(Math.random() * data.length)];
+        targetPhrase = phraseObj.text || "NO PHRASE";
+        updateTargetDisplay();
       } else {
         targetPhrase = "No phrases found";
         updateTargetDisplay();
@@ -244,7 +246,7 @@ function restartTest() {
 
 document.getElementById('restartBtn').addEventListener('click', restartTest);
 
-fetch('https://dotdash-morse-backend.onrender.com/api/results')
+fetch('${API_URL}/api/results')
   .then(res => res.json())
   .then(data => {
     document.getElementById('historyBody').innerHTML = '';
@@ -256,11 +258,12 @@ fetch('https://dotdash-morse-backend.onrender.com/api/results')
     });
   });
 
-fetch('https://dotdash-morse-backend.onrender.com/api/phrases')
+fetch('${API_URL}/api/phrases')
   .then(response => response.json())
   .then(data => {
-    if (data.phrases && data.phrases.length > 0) {
-      targetPhrase = data.phrases[Math.floor(Math.random() * data.phrases.length)];
+    if (Array.isArray(data) && data.length > 0) {
+      const phraseObj = data[Math.floor(Math.random() * data.length)];
+      targetPhrase = phraseObj.text || "NO PHRASE";
       updateTargetDisplay();
     } else {
       targetPhrase = "No phrases found";
@@ -292,7 +295,7 @@ document.querySelector('.signup-form').addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const res = await fetch('https://dotdash-morse-backend.onrender.com/api/signup', {
+    const res = await fetch('${API_URL}/api/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, email, password })
@@ -356,7 +359,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value;
   try {
-    const res = await fetch('https://dotdash-morse-backend.onrender.com/api/login', {
+    const res = await fetch('${API_URL}/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
