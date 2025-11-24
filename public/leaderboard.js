@@ -1,6 +1,6 @@
 const API_URL = "https://dotdash-morse-backend.onrender.com";
 
-fetch('${API_URL}/api/results')
+fetch(`${API_URL}/api/results`)
   .then(res => res.json())
   .then(data => {
     const leaderboardBody = document.getElementById('leaderboardBody');
